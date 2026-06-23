@@ -2,6 +2,7 @@
 
 import { Weapon } from '@/types/valorant';
 import { SkinCard } from '@/components/SkinCard';
+import { WeaponStats } from '@/components/WeaponStats';
 import { Img } from '@/components/ui/Img';
 
 interface WeaponDetailProps {
@@ -25,6 +26,8 @@ export function WeaponDetail({ weapon }: WeaponDetailProps) {
           className="h-28 md:h-32 mx-auto mt-8 object-contain drop-shadow-[0_0_24px_rgba(255,70,85,0.18)]"
         />
       </div>
+
+      <WeaponStats weapon={weapon} />
 
       {/* Skins */}
       <div className="flex items-center gap-3 mb-6">
