@@ -1,8 +1,15 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getMap } from '@/services/lookups';
+import { fetchMaps } from '@/services/valorantApi';
 import { MapDetail } from '@/components/MapDetail';
 import { BackLink } from '@/components/ui/BackLink';
+
+// Pré-renderiza uma página por mapa no build (SSG), reusando o cache ISR.
+export async function generateStaticParams() {
+  const maps = await fetchMaps();
+  return maps.map((m) => ({ uuid: m.uuid }));
+}
 
 export async function generateMetadata({ params }: { params: { uuid: string } }): Promise<Metadata> {
   const map = await getMap(params.uuid);

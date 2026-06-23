@@ -1,8 +1,15 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getBundle } from '@/services/lookups';
+import { fetchBundles } from '@/services/valorantApi';
 import { BundleDetail } from '@/components/BundleDetail';
 import { BackLink } from '@/components/ui/BackLink';
+
+// Pré-renderiza uma página por coleção no build (SSG), reusando o cache ISR.
+export async function generateStaticParams() {
+  const bundles = await fetchBundles();
+  return bundles.map((b) => ({ uuid: b.uuid }));
+}
 
 export async function generateMetadata({ params }: { params: { uuid: string } }): Promise<Metadata> {
   const bundle = await getBundle(params.uuid);

@@ -1,8 +1,15 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getAgentWithContract } from '@/services/lookups';
+import { fetchAgents } from '@/services/valorantApi';
 import { AgentDetail } from '@/components/AgentDetail';
 import { BackLink } from '@/components/ui/BackLink';
+
+// Pré-renderiza uma página por agente no build (SSG), reusando o cache ISR.
+export async function generateStaticParams() {
+  const agents = await fetchAgents();
+  return agents.map((a) => ({ uuid: a.uuid }));
+}
 
 export async function generateMetadata({ params }: { params: { uuid: string } }): Promise<Metadata> {
   const { agent } = await getAgentWithContract(params.uuid);

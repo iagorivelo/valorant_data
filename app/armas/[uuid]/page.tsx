@@ -1,8 +1,15 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getWeapon } from '@/services/lookups';
+import { fetchWeapons } from '@/services/valorantApi';
 import { WeaponDetail } from '@/components/WeaponDetail';
 import { BackLink } from '@/components/ui/BackLink';
+
+// Pré-renderiza uma página por arma no build (SSG), reusando o cache ISR.
+export async function generateStaticParams() {
+  const weapons = await fetchWeapons();
+  return weapons.map((w) => ({ uuid: w.uuid }));
+}
 
 export async function generateMetadata({ params }: { params: { uuid: string } }): Promise<Metadata> {
   const weapon = await getWeapon(params.uuid);
