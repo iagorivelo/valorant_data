@@ -1,0 +1,69 @@
+'use client';
+
+import { Agent, Contract } from '@/types/valorant';
+import { Img } from '@/components/ui/Img';
+
+interface AgentDetailProps {
+  agent: Agent;
+  contract: Contract | undefined;
+}
+
+export function AgentDetail({ agent, contract }: AgentDetailProps) {
+  const contractLevels = contract?.chapters[0]?.levels ?? [];
+
+  return (
+    <div className="p-8 md:p-10">
+      {/* Hero: retrato + info */}
+      <div className="flex flex-col md:flex-row gap-8 md:gap-10 items-center mb-10">
+        <Img
+          src={agent.fullPortrait}
+          alt={agent.displayName}
+          className="w-52 md:w-64 drop-shadow-[0_0_40px_rgba(255,70,85,0.25)] flex-shrink-0"
+        />
+        <div>
+          <p className="eyebrow text-accent mb-3">Agente</p>
+          <h2 className="font-display text-5xl md:text-6xl font-bold uppercase tracking-wide text-ink leading-[0.9] mb-5">
+            {agent.displayName}
+          </h2>
+          <p className="text-base md:text-lg text-ink-muted leading-relaxed max-w-prose">
+            {agent.description}
+          </p>
+        </div>
+      </div>
+
+      {/* Contrato do agente */}
+      {contractLevels.length > 0 && (
+        <>
+          <div className="flex items-center gap-3 mb-5">
+            <span className="w-1 h-5 bg-accent" aria-hidden="true" />
+            <h4 className="font-display text-xl font-semibold uppercase tracking-wide text-ink">
+              Contrato do Agente
+            </h4>
+          </div>
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2">
+            {contractLevels.map((level, idx) => (
+              <div
+                key={idx}
+                className="bg-ground p-3 text-center border border-line hover:border-accent/50 transition-colors"
+              >
+                <div className="text-[10px] text-ink-faint mb-1 uppercase font-semibold tracking-wider">
+                  Nível {idx + 1}
+                </div>
+                <div className="h-10 flex items-center justify-center">
+                  <span className="text-[10px] text-ink-muted uppercase font-medium">
+                    {level.reward?.type ?? 'Recompensa'}
+                  </span>
+                </div>
+                {level.xp > 0 && (
+                  <div className="text-[9px] text-accent/70 mt-1 font-mono tabular-nums">
+                    {level.xp.toLocaleString('pt-BR')} XP
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
