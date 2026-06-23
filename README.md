@@ -10,15 +10,21 @@ níveis em vídeo), mapas (com lore) e coleções — construído sobre a [valor
 - **lucide-react** para ícones
 
 Os dados são buscados no servidor (Server Components) com cache ISR de 24h — sem
-fetch no cliente, sem waterfall e sem tela de carregamento na navegação.
+fetch no cliente, sem waterfall e sem tela de carregamento na navegação. Cada aba
+e cada item têm rota própria (URL compartilhável + Open Graph); os detalhes abrem
+como modal na navegação interna (o botão voltar fecha) e como página cheia no
+acesso direto, via intercepting routes.
 
 ## Funcionalidades
 
-- **Agentes** — retrato, descrição e contrato.
-- **Armas** — skins com chromas (troca de cor no preview) e níveis com vídeo e som.
+- **Agentes** — função, kit de habilidades, descrição e contrato; filtro por função.
+- **Armas** — estatísticas (custo, cadência, pente, recarga, penetração), tabela de
+  dano por distância e skins com chromas e níveis em vídeo; filtro por categoria.
 - **Mapas** — splash, lore narrativa e pontos táticos.
 - **Coleções** — separadas em Champions, Cápsulas VCT, Times e Pacotes, com busca,
   ordenação e **filtro por ano** (Champions/VCT).
+- **Modos de jogo** — duração e descrição de cada modo.
+- **Ranks** — escada competitiva de Ferro a Radiante.
 
 ## Como rodar
 
@@ -33,10 +39,10 @@ produção), `npm run lint` (ESLint).
 ## Estrutura
 
 ```
-app/          rotas, layout, página (SSR) e estados de loading/erro
-components/   componentes de UI; components/ui são os primitivos reutilizáveis
+app/          rotas por aba e por item (+ @modal interceptado), layout e estados
+components/   componentes de UI; components/ui são os primitivos; views/ as abas
 hooks/        hooks de UI (tecla Escape, trava de scroll)
-services/     acesso à valorant-api (funções puras, sem React)
+services/     acesso à valorant-api (funções puras) e buscas por item
 utils/        busca textual e classificação de coleções
 types/        tipos de domínio da API
 data/         lore dos mapas
