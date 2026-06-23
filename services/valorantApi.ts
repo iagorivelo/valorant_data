@@ -51,7 +51,8 @@ export async function fetchGameModes(): Promise<GameMode[]> {
 
 export async function fetchCompetitiveTiers(): Promise<CompetitiveTier[]> {
   const sets = await fetchData<CompetitiveTierSet[]>('competitivetiers', 'tiers competitivos');
-  // Usa o conjunto mais recente; mantém só os ranks com ícone (descarta "Sem Ranque"/não usados)
+  // Usa o conjunto mais recente; mantém só ranks reais (com ícone e tier > 0,
+  // descartando "Sem Ranque" e os níveis não usados)
   const latest = sets[sets.length - 1];
-  return (latest?.tiers ?? []).filter((t) => t.largeIcon);
+  return (latest?.tiers ?? []).filter((t) => t.largeIcon && t.tier > 0);
 }
