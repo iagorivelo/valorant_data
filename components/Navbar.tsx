@@ -5,15 +5,16 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Users, Sword, Map, Package, Gamepad2, Trophy } from 'lucide-react';
+import { Users, Sword, Map, Package, Gamepad2, Trophy, Sticker } from 'lucide-react';
 
 const TABS: { href: string; label: string; icon: React.ReactNode }[] = [
-  { href: '/agentes',  label: 'Agentes',  icon: <Users    size={16} /> },
-  { href: '/armas',    label: 'Armas',    icon: <Sword    size={16} /> },
-  { href: '/mapas',    label: 'Mapas',    icon: <Map      size={16} /> },
-  { href: '/colecoes', label: 'Coleções', icon: <Package  size={16} /> },
-  { href: '/modos',    label: 'Modos',    icon: <Gamepad2 size={16} /> },
-  { href: '/ranks',    label: 'Ranks',    icon: <Trophy   size={16} /> },
+  { href: '/agentes',           label: 'Agentes',    icon: <Users    size={16} /> },
+  { href: '/armas',             label: 'Armas',      icon: <Sword    size={16} /> },
+  { href: '/mapas',             label: 'Mapas',      icon: <Map      size={16} /> },
+  { href: '/colecoes',          label: 'Coleções',   icon: <Package  size={16} /> },
+  { href: '/cosmeticos/sprays', label: 'Cosméticos', icon: <Sticker  size={16} /> },
+  { href: '/modos',             label: 'Modos',      icon: <Gamepad2 size={16} /> },
+  { href: '/ranks',             label: 'Ranks',      icon: <Trophy   size={16} /> },
 ];
 
 export function Navbar() {
@@ -31,7 +32,8 @@ export function Navbar() {
 
         <nav className="flex items-end gap-1 sm:gap-2">
           {TABS.map(({ href, label, icon }) => {
-            const active = pathname === href || pathname.startsWith(`${href}/`);
+            const base = `/${href.split('/')[1]}`;
+            const active = pathname === base || pathname.startsWith(`${base}/`);
             return (
               <Link
                 key={href}

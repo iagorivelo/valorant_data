@@ -23,8 +23,12 @@ acesso direto, via intercepting routes.
 - **Mapas** — splash, lore narrativa e pontos táticos.
 - **Coleções** — separadas em Champions, Cápsulas VCT, Times e Pacotes, com busca,
   ordenação e **filtro por ano** (Champions/VCT).
+- **Cosméticos** — galerias de sprays, chaveiros e cartões, com busca e
+  carregamento incremental (scroll infinito).
 - **Modos de jogo** — duração e descrição de cada modo.
 - **Ranks** — escada competitiva de Ferro a Radiante.
+
+As imagens remotas passam pelo `next/image` (otimização e `srcset` automáticos).
 
 ## Como rodar
 

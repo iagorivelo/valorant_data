@@ -163,6 +163,29 @@ export interface CompetitiveTierSet {
   tiers: CompetitiveTier[];
 }
 
+export interface Spray {
+  uuid: string;
+  displayName: string;
+  isNullSpray: boolean;
+  displayIcon: string | null;
+  fullTransparentIcon: string | null;
+  animationGif: string | null;
+}
+
+export interface Buddy {
+  uuid: string;
+  displayName: string;
+  displayIcon: string | null;
+}
+
+export interface PlayerCard {
+  uuid: string;
+  displayName: string;
+  displayIcon: string | null;
+  largeArt: string | null;
+  wideArt: string | null;
+}
+
 export type Tab = 'agents' | 'weapons' | 'maps' | 'collections' | 'modes' | 'ranks';
 
 export type CollectionSort     = 'newest' | 'oldest' | 'az' | 'za';

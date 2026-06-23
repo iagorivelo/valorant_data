@@ -5,6 +5,7 @@
 import {
   Agent, Weapon, Contract, ValorantMap, Bundle,
   GameMode, CompetitiveTier, CompetitiveTierSet,
+  Spray, Buddy, PlayerCard,
 } from '@/types/valorant';
 
 const API_BASE = 'https://valorant-api.com/v1';
@@ -55,4 +56,19 @@ export async function fetchCompetitiveTiers(): Promise<CompetitiveTier[]> {
   // descartando "Sem Ranque" e os níveis não usados)
   const latest = sets[sets.length - 1];
   return (latest?.tiers ?? []).filter((t) => t.largeIcon && t.tier > 0);
+}
+
+export async function fetchSprays(): Promise<Spray[]> {
+  const sprays = await fetchData<Spray[]>('sprays', 'sprays');
+  return sprays.filter((s) => !s.isNullSpray && s.displayName && (s.fullTransparentIcon || s.displayIcon));
+}
+
+export async function fetchBuddies(): Promise<Buddy[]> {
+  const buddies = await fetchData<Buddy[]>('buddies', 'chaveiros');
+  return buddies.filter((b) => b.displayName && b.displayIcon);
+}
+
+export async function fetchPlayerCards(): Promise<PlayerCard[]> {
+  const cards = await fetchData<PlayerCard[]>('playercards', 'cartões');
+  return cards.filter((c) => c.displayName && (c.largeArt || c.displayIcon));
 }
