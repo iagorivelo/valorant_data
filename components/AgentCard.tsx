@@ -34,6 +34,16 @@ export function AgentCard({ agent, onClick }: AgentCardProps) {
           alt={`Ícone de ${agent.displayName}`}
           className="w-20 h-20 mb-5 transition-transform duration-500 group-hover:-translate-y-0.5"
         />
+        {agent.role && (
+          <div className="flex items-center gap-1.5 mb-2">
+            {agent.role.displayIcon && (
+              <Img src={agent.role.displayIcon} alt="" aria-hidden="true" className="w-3.5 h-3.5" />
+            )}
+            <span className="text-[11px] font-semibold uppercase tracking-[0.15em] text-accent">
+              {agent.role.displayName}
+            </span>
+          </div>
+        )}
         <h3 className="font-display text-2xl font-semibold uppercase tracking-wide text-ink mb-2 leading-none">
           {agent.displayName}
         </h3>

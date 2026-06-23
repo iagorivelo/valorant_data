@@ -1,6 +1,6 @@
 'use client';
 
-import { Agent, Contract } from '@/types/valorant';
+import { Agent, Contract, AgentAbility } from '@/types/valorant';
 import { Img } from '@/components/ui/Img';
 
 interface AgentDetailProps {
@@ -8,8 +8,14 @@ interface AgentDetailProps {
   contract: Contract | undefined;
 }
 
+const ABILITY_KIND: Partial<Record<AgentAbility['slot'], string>> = {
+  Ultimate: 'Suprema',
+  Passive: 'Passiva',
+};
+
 export function AgentDetail({ agent, contract }: AgentDetailProps) {
   const contractLevels = contract?.chapters[0]?.levels ?? [];
+  const abilities = agent.abilities.filter((a) => a.displayName);
 
   return (
     <div className="p-8 md:p-10">
@@ -21,7 +27,12 @@ export function AgentDetail({ agent, contract }: AgentDetailProps) {
           className="w-52 md:w-64 drop-shadow-[0_0_40px_rgba(255,70,85,0.25)] flex-shrink-0"
         />
         <div>
-          <p className="eyebrow text-accent mb-3">Agente</p>
+          <div className="flex items-center gap-2 mb-3">
+            {agent.role?.displayIcon && (
+              <Img src={agent.role.displayIcon} alt="" aria-hidden="true" className="w-4 h-4" />
+            )}
+            <p className="eyebrow text-accent">{agent.role?.displayName ?? 'Agente'}</p>
+          </div>
           <h2 className="font-display text-5xl md:text-6xl font-bold uppercase tracking-wide text-ink leading-[0.9] mb-5">
             {agent.displayName}
           </h2>
@@ -30,6 +41,56 @@ export function AgentDetail({ agent, contract }: AgentDetailProps) {
           </p>
         </div>
       </div>
+
+      {/* Habilidades */}
+      {abilities.length > 0 && (
+        <section className="mb-10">
+          <div className="flex items-center gap-3 mb-5">
+            <span className="w-1 h-5 bg-accent" aria-hidden="true" />
+            <h4 className="font-display text-xl font-semibold uppercase tracking-wide text-ink">
+              Habilidades
+            </h4>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {abilities.map((ability, idx) => {
+              const isUltimate = ability.slot === 'Ultimate';
+              return (
+                <div
+                  key={`${ability.slot}-${idx}`}
+                  className={`flex gap-4 p-4 border bg-ground ${
+                    isUltimate ? 'border-accent/40' : 'border-line'
+                  }`}
+                >
+                  <div className="w-11 h-11 flex-shrink-0 grid place-items-center border border-line bg-surface">
+                    {ability.displayIcon ? (
+                      <Img src={ability.displayIcon} alt={ability.displayName} className="w-7 h-7 object-contain" />
+                    ) : (
+                      <span className="font-display text-ink-faint text-lg">{idx + 1}</span>
+                    )}
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2">
+                      <h5 className="font-semibold text-ink text-sm uppercase tracking-wide truncate">
+                        {ability.displayName}
+                      </h5>
+                      <span
+                        className={`text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 flex-shrink-0 ${
+                          isUltimate ? 'bg-accent/15 text-accent' : 'bg-surface-raised text-ink-faint'
+                        }`}
+                      >
+                        {ABILITY_KIND[ability.slot] ?? 'Habilidade'}
+                      </span>
+                    </div>
+                    <p className="text-ink-muted text-[13px] leading-relaxed mt-1">
+                      {ability.description}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       {/* Contrato do agente */}
       {contractLevels.length > 0 && (

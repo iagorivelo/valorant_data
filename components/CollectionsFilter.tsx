@@ -5,6 +5,7 @@
 import { ArrowUpDown } from 'lucide-react';
 import { SearchField } from '@/components/ui/SearchField';
 import { ResultCount } from '@/components/ui/ResultCount';
+import { FilterChips } from '@/components/ui/FilterChips';
 import { CollectionSort } from '@/types/valorant';
 
 interface CollectionsFilterProps {
@@ -39,13 +40,6 @@ export function CollectionsFilter({
   year,
   onYearChange,
 }: CollectionsFilterProps) {
-  const chip = (active: boolean) =>
-    `px-3 py-1.5 text-xs font-semibold uppercase tracking-wide border transition-colors ${
-      active
-        ? 'border-accent text-accent bg-accent/10'
-        : 'border-line text-ink-muted hover:text-ink hover:border-ink-faint'
-    }`;
-
   return (
     <div className="mb-6">
       <div className="flex gap-3">
@@ -75,19 +69,14 @@ export function CollectionsFilter({
         </div>
       </div>
 
-      {years.length > 0 && (
-        <div className="mt-3 flex flex-wrap items-center gap-2">
-          <span className="eyebrow mr-1">Ano</span>
-          <button onClick={() => onYearChange(null)} className={chip(year === null)}>
-            Todos
-          </button>
-          {years.map((y) => (
-            <button key={y} onClick={() => onYearChange(y)} className={chip(year === y)}>
-              {y}
-            </button>
-          ))}
-        </div>
-      )}
+      <div className="mt-3">
+        <FilterChips
+          label="Ano"
+          options={years.map((y) => ({ value: y, label: String(y) }))}
+          value={year}
+          onChange={onYearChange}
+        />
+      </div>
 
       <ResultCount
         query={query}
