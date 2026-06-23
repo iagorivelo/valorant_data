@@ -2,7 +2,10 @@
 // Rodam em Server Components: respostas cacheadas e revalidadas a cada 24h (ISR),
 // já que os dados da API só mudam a cada patch do jogo.
 
-import { Agent, Weapon, Contract, ValorantMap, Bundle } from '@/types/valorant';
+import {
+  Agent, Weapon, Contract, ValorantMap, Bundle,
+  GameMode, CompetitiveTier, CompetitiveTierSet,
+} from '@/types/valorant';
 
 const API_BASE = 'https://valorant-api.com/v1';
 const LANG = 'language=pt-BR';
@@ -38,4 +41,17 @@ export async function fetchBundles(): Promise<Bundle[]> {
   return bundles
     .filter((b) => b.displayIcon || b.displayIcon2 || b.verticalPromoImage)
     .map((b, i) => ({ ...b, releaseOrder: i }));
+}
+
+export async function fetchGameModes(): Promise<GameMode[]> {
+  const modes = await fetchData<GameMode[]>('gamemodes', 'modos de jogo');
+  // Mantém só modos com nome e descrição (descarta entradas internas)
+  return modes.filter((m) => m.displayName?.trim() && m.description?.trim());
+}
+
+export async function fetchCompetitiveTiers(): Promise<CompetitiveTier[]> {
+  const sets = await fetchData<CompetitiveTierSet[]>('competitivetiers', 'tiers competitivos');
+  // Usa o conjunto mais recente; mantém só os ranks com ícone (descarta "Sem Ranque"/não usados)
+  const latest = sets[sets.length - 1];
+  return (latest?.tiers ?? []).filter((t) => t.largeIcon);
 }

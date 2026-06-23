@@ -1,5 +1,19 @@
 // Interfaces de domínio para os dados da API Valorant
 
+export interface AgentRole {
+  uuid: string;
+  displayName: string;
+  description: string;
+  displayIcon: string;
+}
+
+export interface AgentAbility {
+  slot: 'Ability1' | 'Ability2' | 'Grenade' | 'Ultimate' | 'Passive';
+  displayName: string;
+  description: string;
+  displayIcon: string | null;
+}
+
 export interface Agent {
   uuid: string;
   displayName: string;
@@ -8,6 +22,8 @@ export interface Agent {
   fullPortrait: string;
   background: string;
   isPlayableCharacter: boolean;
+  role: AgentRole | null;
+  abilities: AgentAbility[];
 }
 
 export interface SkinChroma {
@@ -34,13 +50,36 @@ export interface WeaponSkin {
   levels: SkinLevel[];
 }
 
+export interface DamageRange {
+  rangeStartMeters: number;
+  rangeEndMeters: number;
+  headDamage: number;
+  bodyDamage: number;
+  legDamage: number;
+}
+
+export interface WeaponStats {
+  fireRate: number;
+  magazineSize: number;
+  runSpeedMultiplier: number;
+  equipTimeSeconds: number;
+  reloadTimeSeconds: number;
+  firstBulletAccuracy: number;
+  shotgunPelletCount: number;
+  wallPenetration: string;
+  fireMode: string | null;
+  damageRanges: DamageRange[];
+}
+
 export interface Weapon {
   uuid: string;
   displayName: string;
   displayIcon: string;
   shopData: {
+    cost: number;
     categoryText: string;
   } | null;
+  weaponStats: WeaponStats | null;
   skins: WeaponSkin[];
 }
 
@@ -100,7 +139,31 @@ export interface Bundle {
   releaseOrder: number;
 }
 
-export type Tab = 'agents' | 'weapons' | 'maps' | 'collections';
+export interface GameMode {
+  uuid: string;
+  displayName: string;
+  description: string | null;
+  duration: string | null;
+  displayIcon: string | null;
+  listViewIconTall: string | null;
+}
+
+export interface CompetitiveTier {
+  tier: number;
+  tierName: string;
+  divisionName: string;
+  color: string;
+  backgroundColor: string;
+  largeIcon: string | null;
+  smallIcon: string | null;
+}
+
+export interface CompetitiveTierSet {
+  uuid: string;
+  tiers: CompetitiveTier[];
+}
+
+export type Tab = 'agents' | 'weapons' | 'maps' | 'collections' | 'modes' | 'ranks';
 
 export type CollectionSort     = 'newest' | 'oldest' | 'az' | 'za';
 export type CollectionCategory = 'all' | 'standard' | 'champions';
