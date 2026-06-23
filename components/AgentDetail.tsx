@@ -24,12 +24,16 @@ export function AgentDetail({ agent, contract }: AgentDetailProps) {
         <Img
           src={agent.fullPortrait}
           alt={agent.displayName}
-          className="w-52 md:w-64 drop-shadow-[0_0_40px_rgba(255,70,85,0.25)] flex-shrink-0"
+          width={640}
+          height={820}
+          priority
+          sizes="(max-width: 768px) 208px, 256px"
+          className="w-52 md:w-64 h-auto drop-shadow-[0_0_40px_rgba(255,70,85,0.25)] flex-shrink-0"
         />
         <div>
           <div className="flex items-center gap-2 mb-3">
             {agent.role?.displayIcon && (
-              <Img src={agent.role.displayIcon} alt="" aria-hidden="true" className="w-4 h-4" />
+              <Img src={agent.role.displayIcon} alt="" aria-hidden="true" width={16} height={16} className="w-4 h-4" />
             )}
             <p className="eyebrow text-accent">{agent.role?.displayName ?? 'Agente'}</p>
           </div>
@@ -63,7 +67,7 @@ export function AgentDetail({ agent, contract }: AgentDetailProps) {
                 >
                   <div className="w-11 h-11 flex-shrink-0 grid place-items-center border border-line bg-surface">
                     {ability.displayIcon ? (
-                      <Img src={ability.displayIcon} alt={ability.displayName} className="w-7 h-7 object-contain" />
+                      <Img src={ability.displayIcon} alt={ability.displayName} width={28} height={28} className="w-7 h-7 object-contain" />
                     ) : (
                       <span className="font-display text-ink-faint text-lg">{idx + 1}</span>
                     )}

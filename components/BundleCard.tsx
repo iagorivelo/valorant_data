@@ -26,7 +26,9 @@ export function BundleCard({ bundle, onClick }: BundleCardProps) {
           <Img
             src={bgImage}
             alt={bundle.displayName}
-            className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/30 to-transparent" />
         </div>
@@ -50,8 +52,8 @@ export function BundleCard({ bundle, onClick }: BundleCardProps) {
           </div>
 
           {thumbImage && (
-            <div className="w-10 h-10 flex-shrink-0 overflow-hidden border border-line bg-ground">
-              <Img src={thumbImage} alt="" className="w-full h-full object-contain p-1" />
+            <div className="relative w-10 h-10 flex-shrink-0 overflow-hidden border border-line bg-ground">
+              <Img src={thumbImage} alt="" fill sizes="40px" className="object-contain p-1" />
             </div>
           )}
         </div>

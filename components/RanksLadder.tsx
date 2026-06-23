@@ -45,7 +45,7 @@ export function RanksLadder({ tiers }: { tiers: CompetitiveTier[] }) {
                   className="bg-surface border border-line flex flex-col items-center gap-2 p-4 hover:border-ink-faint transition-colors"
                 >
                   {tier.largeIcon && (
-                    <Img src={tier.largeIcon} alt={tier.tierName} className="w-16 h-16 object-contain" />
+                    <Img src={tier.largeIcon} alt={tier.tierName} width={64} height={64} className="w-16 h-16 object-contain" />
                   )}
                   <span className="text-[11px] font-semibold uppercase tracking-wide text-ink-muted text-center">
                     {tier.tierName}

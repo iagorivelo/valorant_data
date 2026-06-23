@@ -16,11 +16,13 @@ export function WeaponCard({ weapon, onClick }: WeaponCardProps) {
       ariaLabel={`Ver detalhes de ${weapon.displayName}`}
       className="group flex flex-col items-center gap-5 p-6 hover:bg-surface-raised"
     >
-      <div className="flex-1 w-full flex items-center justify-center min-h-[6rem]">
+      <div className="relative w-full h-24 flex-shrink-0">
         <Img
           src={weapon.displayIcon}
           alt={weapon.displayName}
-          className="w-full h-24 object-contain transition-transform duration-500 group-hover:scale-105"
+          fill
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          className="object-contain transition-transform duration-500 group-hover:scale-105"
         />
       </div>
       <div className="text-center">

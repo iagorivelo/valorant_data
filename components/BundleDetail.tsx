@@ -24,14 +24,17 @@ export function BundleDetail({ bundle }: BundleDetailProps) {
           <Img
             src={heroImage}
             alt={bundle.displayName}
-            className="w-full h-full object-cover object-center"
+            fill
+            priority
+            sizes="(max-width: 896px) 100vw, 896px"
+            className="object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/20 to-transparent" />
 
           {/* Thumb no canto */}
           {bundle.displayIcon && bundle.displayIcon !== heroImage && (
-            <div className="absolute bottom-4 right-4 w-16 h-16 border border-line bg-ground/60 backdrop-blur-sm p-1.5">
-              <Img src={bundle.displayIcon} alt="" className="w-full h-full object-contain" />
+            <div className="absolute bottom-4 right-4 w-16 h-16 border border-line bg-ground/60 backdrop-blur-sm">
+              <Img src={bundle.displayIcon} alt="" fill sizes="64px" className="object-contain p-1.5" />
             </div>
           )}
 
@@ -121,7 +124,10 @@ export function BundleDetail({ bundle }: BundleDetailProps) {
               <Img
                 src={bundle.displayIcon2}
                 alt={`${bundle.displayName} — arte alternativa`}
-                className="w-full max-w-sm object-contain border border-line"
+                width={384}
+                height={240}
+                sizes="(max-width: 384px) 100vw, 384px"
+                className="w-full max-w-sm h-auto object-contain border border-line"
               />
             </div>
           )}

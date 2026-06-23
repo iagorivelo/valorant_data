@@ -39,12 +39,16 @@ export function SkinCard({ skin, weaponDisplayIcon }: SkinCardProps) {
         }`}
       >
         <div className="group">
-          <Img
-            key={previewSrc} /* força fade ao trocar chroma */
-            src={previewSrc}
-            alt={skin.displayName}
-            className="w-full h-20 object-contain mb-2 transition-all duration-300 group-hover:scale-105"
-          />
+          <div className="relative w-full h-20 mb-2">
+            <Img
+              key={previewSrc} /* força fade ao trocar chroma */
+              src={previewSrc}
+              alt={skin.displayName}
+              fill
+              sizes="(max-width: 768px) 50vw, 200px"
+              className="object-contain transition-all duration-300 group-hover:scale-105"
+            />
+          </div>
           <p className="text-xs font-medium text-center text-ink-muted line-clamp-2 min-h-[2rem]">
             {skin.displayName}
             {activeChromaIdx > 0 && activeChroma && (

@@ -19,7 +19,10 @@ export function MapDetail({ map }: MapDetailProps) {
         <Img
           src={map.splash}
           alt={map.displayName}
-          className="w-full h-full object-cover"
+          fill
+          priority
+          sizes="(max-width: 896px) 100vw, 896px"
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ground via-ground/30 to-transparent" />
 
@@ -29,7 +32,9 @@ export function MapDetail({ map }: MapDetailProps) {
             <Img
               src={map.displayIcon}
               alt={`Minimapa de ${map.displayName}`}
-              className="w-full h-full object-contain opacity-80"
+              fill
+              sizes="80px"
+              className="object-contain opacity-80"
             />
           </div>
         )}

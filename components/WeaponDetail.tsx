@@ -23,7 +23,11 @@ export function WeaponDetail({ weapon }: WeaponDetailProps) {
         <Img
           src={weapon.displayIcon}
           alt={weapon.displayName}
-          className="h-28 md:h-32 mx-auto mt-8 object-contain drop-shadow-[0_0_24px_rgba(255,70,85,0.18)]"
+          width={512}
+          height={180}
+          priority
+          sizes="(max-width: 768px) 90vw, 512px"
+          className="h-28 md:h-32 w-auto mx-auto mt-8 object-contain drop-shadow-[0_0_24px_rgba(255,70,85,0.18)]"
         />
       </div>
 

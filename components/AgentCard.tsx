@@ -23,7 +23,9 @@ export function AgentCard({ agent, onClick }: AgentCardProps) {
             src={agent.background}
             alt=""
             aria-hidden="true"
-            className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover group-hover:scale-110 transition-transform duration-700"
           />
         </div>
       )}
@@ -32,12 +34,14 @@ export function AgentCard({ agent, onClick }: AgentCardProps) {
         <Img
           src={agent.displayIcon}
           alt={`Ícone de ${agent.displayName}`}
+          width={80}
+          height={80}
           className="w-20 h-20 mb-5 transition-transform duration-500 group-hover:-translate-y-0.5"
         />
         {agent.role && (
           <div className="flex items-center gap-1.5 mb-2">
             {agent.role.displayIcon && (
-              <Img src={agent.role.displayIcon} alt="" aria-hidden="true" className="w-3.5 h-3.5" />
+              <Img src={agent.role.displayIcon} alt="" aria-hidden="true" width={14} height={14} className="w-3.5 h-3.5" />
             )}
             <span className="text-[11px] font-semibold uppercase tracking-[0.15em] text-accent">
               {agent.role.displayName}

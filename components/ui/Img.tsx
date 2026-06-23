@@ -1,15 +1,9 @@
-// Wrapper único sobre <img> das imagens remotas da API Valorant.
-// Centraliza lazy-loading + decoding assíncrono e o eslint-disable em UM lugar,
-// em vez de repeti-los em cada card/detalhe do projeto.
+// Wrapper único sobre next/image para as imagens remotas da API Valorant.
+// Use `fill` (com o pai posicionado e `sizes`) para imagens que preenchem um
+// container, ou `width`/`height` para ícones de tamanho fixo.
 
-import type { ImgHTMLAttributes } from 'react';
+import Image, { type ImageProps } from 'next/image';
 
-type ImgProps = ImgHTMLAttributes<HTMLImageElement> & {
-  src: string;
-  alt: string;
-};
-
-export function Img({ loading = 'lazy', decoding = 'async', alt, ...props }: ImgProps) {
-  // eslint-disable-next-line @next/next/no-img-element
-  return <img alt={alt} loading={loading} decoding={decoding} {...props} />;
+export function Img(props: ImageProps) {
+  return <Image {...props} />;
 }

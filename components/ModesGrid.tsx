@@ -11,8 +11,8 @@ export function ModesGrid({ modes }: { modes: GameMode[] }) {
       {modes.map((mode) => (
         <div key={mode.uuid} className="bg-surface border border-line p-5 flex gap-4">
           {mode.displayIcon && (
-            <div className="w-12 h-12 flex-shrink-0 grid place-items-center">
-              <Img src={mode.displayIcon} alt="" aria-hidden="true" className="w-full h-full object-contain" />
+            <div className="relative w-12 h-12 flex-shrink-0">
+              <Img src={mode.displayIcon} alt="" aria-hidden="true" fill sizes="48px" className="object-contain" />
             </div>
           )}
           <div className="min-w-0">

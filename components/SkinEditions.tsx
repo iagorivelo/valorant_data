@@ -58,17 +58,17 @@ export function SkinEditions({
                           : 'border-line group-hover/chroma:border-ink-faint'
                       }`}
                     >
-                      <Img src={chroma.swatch} alt={chroma.displayName} className="w-full h-full object-cover" />
+                      <Img src={chroma.swatch} alt={chroma.displayName} fill sizes="36px" className="object-cover" />
                     </div>
                   ) : chroma.displayIcon ? (
                     <div
-                      className={`w-11 h-11 bg-ground border p-1 flex items-center justify-center transition-all duration-150 ${
+                      className={`relative w-11 h-11 bg-ground border transition-all duration-150 ${
                         isActive
                           ? 'border-accent shadow-[0_0_8px_rgba(255,70,85,0.5)]'
                           : 'border-line group-hover/chroma:border-ink-faint'
                       }`}
                     >
-                      <Img src={chroma.displayIcon} alt={chroma.displayName} className="w-full h-full object-contain" />
+                      <Img src={chroma.displayIcon} alt={chroma.displayName} fill sizes="44px" className="object-contain p-1" />
                     </div>
                   ) : (
                     <div
@@ -121,7 +121,7 @@ export function SkinEditions({
                   >
                     {level.displayIcon ? (
                       <>
-                        <Img src={level.displayIcon} alt={level.levelItem ?? `Nível ${idx + 1}`} className="w-6 h-6 object-contain" />
+                        <Img src={level.displayIcon} alt={level.levelItem ?? `Nível ${idx + 1}`} width={24} height={24} className="w-6 h-6 object-contain" />
                         {hasVideo && (
                           <span className="absolute inset-0 flex items-center justify-center bg-black/65 opacity-0 group-hover/level:opacity-100 transition-opacity">
                             <span className="text-white text-[11px] font-black">▶</span>
