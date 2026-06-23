@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ground: #0c1116;
+  --surface: #11181e;
+  --surface-raised: #18222b;
+  --line: #1e2731;
+  --ink: #e7ecef;
+  --ink-muted: #8a97a0;
+  --ink-faint: #566069;
+  --accent: #ff4655;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--ground);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: #0c1116;
+}
+
+/* Scrollbar discreta */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ground);
+}
+::-webkit-scrollbar-thumb {
+  background: #283340;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #364453;
+}
+
+@layer components {
+  /* Eyebrow / rótulo utilitário — caixa-alta com tracking largo */
+  .eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-[0.28em] text-ink-faint;
+  }
+
+  /* Card interativo: superfície + hairline + colchete de mira no hover/foco */
+  .card {
+    @apply relative cursor-pointer bg-surface border border-line transition-[border-color,background-color,transform] duration-300;
+  }
+  .card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 16px;
+    height: 16px;
+    border-top: 2px solid var(--accent);
+    border-right: 2px solid var(--accent);
+    opacity: 0;
+    transform: translate(-5px, 5px);
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 6;
+    pointer-events: none;
+  }
+  .card:hover,
+  .card:focus-visible {
+    @apply border-accent/45 outline-none;
+  }
+  .card:hover::after,
+  .card:focus-visible::after {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  /* Campo de formulário padrão */
+  .field {
+    @apply w-full bg-surface border border-line text-ink placeholder-ink-faint text-sm font-medium transition-colors;
+    @apply focus:outline-none focus:border-accent/70;
+  }
+}
+
+@layer utilities {
+  /* Chanfro de canto (motivo angular VALORANT) para botões/realces sólidos */
+  .clip-notch {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%);
+  }
+}
+
+/* Respeita usuários que preferem menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
