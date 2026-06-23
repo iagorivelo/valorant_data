@@ -29,6 +29,8 @@ acesso direto, via intercepting routes.
 - **Ranks** — escada competitiva de Ferro a Radiante.
 
 As imagens remotas passam pelo `next/image` (otimização e `srcset` automáticos).
+`sitemap.xml` e `robots.txt` são gerados no servidor a partir das rotas e dos itens
+da API.
 
 ## Como rodar
 
@@ -36,6 +38,9 @@ As imagens remotas passam pelo `next/image` (otimização e `srcset` automático
 npm install
 npm run dev      # http://localhost:3000
 ```
+
+Defina `NEXT_PUBLIC_SITE_URL` no deploy (URL pública do site) para que o sitemap,
+o `robots.txt` e as URLs de Open Graph apontem para o domínio correto.
 
 Outros scripts: `npm run build` (build de produção), `npm start` (servidor de
 produção), `npm run lint` (ESLint).
@@ -47,7 +52,7 @@ app/          rotas por aba e por item (+ @modal interceptado), layout e estados
 components/   componentes de UI; components/ui são os primitivos; views/ as abas
 hooks/        hooks de UI (tecla Escape, trava de scroll)
 services/     acesso à valorant-api (funções puras) e buscas por item
-utils/        busca textual e classificação de coleções
+utils/        busca textual, classificação de coleções e URL pública do site
 types/        tipos de domínio da API
 data/         lore dos mapas
 ```

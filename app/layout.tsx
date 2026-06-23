@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Barlow, Barlow_Condensed } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/Navbar';
+import { SITE_URL } from '@/utils/site';
 
 const barlow = Barlow({
   subsets: ['latin'],
@@ -18,6 +19,7 @@ const barlowCondensed = Barlow_Condensed({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: 'Valorant Data | Agentes, Armas, Mapas e Coleções',
   description:
     'Explore o arsenal do Valorant — agentes, armas e skins (com chromas e níveis), mapas e coleções, com detalhes completos.',
