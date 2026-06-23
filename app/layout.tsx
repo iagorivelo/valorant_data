@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Barlow, Barlow_Condensed } from 'next/font/google';
 import './globals.css';
+import { Navbar } from '@/components/Navbar';
 
 const barlow = Barlow({
   subsets: ['latin'],
@@ -23,11 +24,19 @@ export const metadata: Metadata = {
   keywords: ['valorant', 'agentes', 'armas', 'skins', 'mapas', 'coleções', 'dashboard'],
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+  modal,
+}: {
+  children: React.ReactNode;
+  modal: React.ReactNode;
+}) {
   return (
     <html lang="pt-BR" className={`${barlow.variable} ${barlowCondensed.variable}`}>
       <body className="min-h-screen bg-ground text-ink font-sans antialiased">
-        {children}
+        <Navbar />
+        <main className="max-w-6xl mx-auto px-6 py-10">{children}</main>
+        {modal}
       </body>
     </html>
   );
