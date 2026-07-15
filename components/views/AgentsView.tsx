@@ -52,7 +52,7 @@ export function AgentsView({ agents }: { agents: Agent[] }) {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
         {filtered.map((agent, i) => (
-          <AgentCard key={agent.uuid} agent={agent} index={i} onClick={(a) => router.push(`/agentes/${a.uuid}`)} />
+          <AgentCard key={agent.uuid} agent={agent} index={i} onClick={(a) => router.push(`/agentes/${a.uuid}`, { scroll: false })} />
         ))}
       </div>
     </section>

@@ -44,7 +44,7 @@ export function CollectionsView({ bundles }: { bundles: Bundle[] }) {
         years={years} year={year} onYearChange={setYear}
         resultCount={filtered.length} totalCount={bundles.length}
       />
-      <CollectionsGrid bundles={filtered} onSelect={(b) => router.push(`/colecoes/${b.uuid}`)} />
+      <CollectionsGrid bundles={filtered} onSelect={(b) => router.push(`/colecoes/${b.uuid}`, { scroll: false })} />
     </section>
   );
 }

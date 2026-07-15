@@ -53,7 +53,7 @@ export function WeaponsView({ weapons }: { weapons: Weapon[] }) {
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6">
         {filtered.map((weapon, i) => (
-          <WeaponCard key={weapon.uuid} weapon={weapon} index={i} onClick={(w) => router.push(`/armas/${w.uuid}`)} />
+          <WeaponCard key={weapon.uuid} weapon={weapon} index={i} onClick={(w) => router.push(`/armas/${w.uuid}`, { scroll: false })} />
         ))}
       </div>
     </section>
