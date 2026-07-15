@@ -29,9 +29,9 @@ export function MapsView({ maps }: { maps: ValorantMap[] }) {
         resultCount={filtered.length}
         totalCount={maps.length}
       />
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-        {filtered.map((map) => (
-          <MapCard key={map.uuid} map={map} onClick={(m) => router.push(`/mapas/${m.uuid}`)} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
+        {filtered.map((map, i) => (
+          <MapCard key={map.uuid} map={map} index={i} onClick={(m) => router.push(`/mapas/${m.uuid}`)} />
         ))}
       </div>
     </section>

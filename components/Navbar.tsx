@@ -22,15 +22,15 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 bg-ground/80 backdrop-blur-md border-b border-line">
-      <div className="max-w-6xl mx-auto flex items-center justify-between px-6 h-16">
-        <Link href="/agentes" className="flex items-center gap-3 select-none">
+      <div className="max-w-6xl mx-auto flex items-center justify-between px-5 sm:px-6 h-16">
+        <Link href="/agentes" className="flex shrink-0 items-center gap-2.5 select-none">
           <span className="block w-2.5 h-6 bg-accent clip-notch" aria-hidden="true" />
-          <span className="font-display text-xl font-bold uppercase tracking-[0.12em] text-ink">
-            Valorant<span className="text-ink-faint"> Data</span>
+          <span className="font-display text-lg sm:text-xl font-bold uppercase tracking-[0.12em] text-ink whitespace-nowrap">
+            Valorant<span className="hidden sm:inline text-ink-faint"> Data</span>
           </span>
         </Link>
 
-        <nav className="flex items-end gap-1 sm:gap-2">
+        <nav className="flex items-end gap-0.5 sm:gap-2">
           {TABS.map(({ href, label, icon }) => {
             const base = `/${href.split('/')[1]}`;
             const active = pathname === base || pathname.startsWith(`${base}/`);
@@ -39,7 +39,7 @@ export function Navbar() {
                 key={href}
                 href={href}
                 aria-current={active ? 'page' : undefined}
-                className={`relative flex items-center gap-2 px-2.5 py-2 text-sm font-semibold uppercase tracking-wide transition-colors ${
+                className={`relative flex items-center gap-2 px-2 sm:px-2.5 py-2 text-sm font-semibold uppercase tracking-wide transition-colors ${
                   active ? 'text-ink' : 'text-ink-muted hover:text-ink'
                 }`}
               >

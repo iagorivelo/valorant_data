@@ -7,14 +7,16 @@ import { Img } from '@/components/ui/Img';
 interface WeaponCardProps {
   weapon: Weapon;
   onClick: (weapon: Weapon) => void;
+  index?: number;
 }
 
-export function WeaponCard({ weapon, onClick }: WeaponCardProps) {
+export function WeaponCard({ weapon, onClick, index }: WeaponCardProps) {
   return (
     <CardButton
       onClick={() => onClick(weapon)}
       ariaLabel={`Ver detalhes de ${weapon.displayName}`}
-      className="group flex flex-col items-center gap-5 p-6 hover:bg-surface-raised"
+      index={index}
+      className="group flex flex-col items-center gap-5 p-6"
     >
       <div className="relative w-full h-24 flex-shrink-0">
         <Img
@@ -29,7 +31,7 @@ export function WeaponCard({ weapon, onClick }: WeaponCardProps) {
         <h3 className="font-display text-lg font-semibold uppercase tracking-wide text-ink leading-none">
           {weapon.displayName}
         </h3>
-        <p className="text-ink-faint text-[11px] font-semibold uppercase tracking-[0.2em] mt-1.5 group-hover:text-accent transition-colors">
+        <p className="text-ink-faint text-eyebrow font-semibold uppercase mt-2 group-hover:text-accent transition-colors">
           {weapon.shopData?.categoryText ?? 'Corpo a corpo'}
         </p>
       </div>

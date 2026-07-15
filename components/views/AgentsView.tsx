@@ -42,7 +42,7 @@ export function AgentsView({ agents }: { agents: Agent[] }) {
         resultCount={filtered.length}
         totalCount={agents.length}
       />
-      <div className="-mt-2 mb-6">
+      <div className="-mt-1 mb-8">
         <FilterChips
           label="Função"
           options={roles.map((r) => ({ value: r, label: r }))}
@@ -50,9 +50,9 @@ export function AgentsView({ agents }: { agents: Agent[] }) {
           onChange={setRole}
         />
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {filtered.map((agent) => (
-          <AgentCard key={agent.uuid} agent={agent} onClick={(a) => router.push(`/agentes/${a.uuid}`)} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+        {filtered.map((agent, i) => (
+          <AgentCard key={agent.uuid} agent={agent} index={i} onClick={(a) => router.push(`/agentes/${a.uuid}`)} />
         ))}
       </div>
     </section>

@@ -35,9 +35,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" className={`${barlow.variable} ${barlowCondensed.variable}`}>
+      <head>
+        {/* Marca JS ativo antes da pintura: sem JS o conteúdo aparece sem depender
+            da animação de entrada (progressive enhancement). */}
+        <script
+          dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }}
+        />
+      </head>
       <body className="min-h-screen bg-ground text-ink font-sans antialiased">
         <Navbar />
-        <main className="max-w-6xl mx-auto px-6 py-10">{children}</main>
+        <main className="max-w-6xl mx-auto px-5 py-12 sm:px-6 sm:py-16">{children}</main>
         {modal}
       </body>
     </html>

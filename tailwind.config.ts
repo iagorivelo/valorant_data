@@ -10,24 +10,33 @@ const config: Config = {
     extend: {
       colors: {
         // ── Sistema semântico ──────────────────────────────────────
-        ground: '#0C1116',           // fundo da página (near-black azulado)
-        surface: '#11181E',          // cards / painéis
-        'surface-raised': '#18222B', // estados elevados / hover
-        line: '#1E2731',             // hairlines
-        ink: '#E7ECEF',              // texto primário
-        'ink-muted': '#8A97A0',      // texto secundário
-        'ink-faint': '#566069',      // legendas / terciário
-        accent: '#FF4655',           // vermelho VALORANT (acento)
+        // Neutros com viés frio (não cinza puro) + um único acento.
+        ground: '#0B0F14',           // fundo da página (near-black azulado)
+        surface: '#121821',          // cards / painéis
+        'surface-raised': '#1A222C', // estados elevados / hover
+        line: '#232E39',             // hairlines
+        ink: '#EDF1F4',              // texto primário
+        'ink-muted': '#9DAAB4',      // texto secundário (≥ AA)
+        'ink-faint': '#788591',      // legendas / terciário (≥ AA)
+        accent: '#FF4655',           // vermelho VALORANT (acento único)
         'accent-soft': '#FF6470',
         // ── Alias de marca (compat) ────────────────────────────────
-        valorant: { red: '#FF4655', dark: '#0C1116', card: '#11181E' },
+        valorant: { red: '#FF4655', dark: '#0B0F14', card: '#121821' },
       },
       fontFamily: {
         sans: ['var(--font-barlow)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         display: ['var(--font-barlow-condensed)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
+      // Escala tipográfica consistente (roles nomeados).
+      fontSize: {
+        eyebrow: ['0.6875rem', { lineHeight: '1', letterSpacing: '0.2em' }], // 11px
+        caption: ['0.75rem', { lineHeight: '1.5' }],                          // 12px
+        body: ['0.9375rem', { lineHeight: '1.65' }],                          // 15px
+      },
       boxShadow: {
+        // Elevação suave para o hover dos cards (tema escuro → sombras profundas).
+        lift: '0 18px 40px -20px rgba(0, 0, 0, 0.75), 0 6px 16px -10px rgba(0, 0, 0, 0.55)',
         panel: '0 24px 80px -20px rgba(0, 0, 0, 0.7)',
       },
       keyframes: {

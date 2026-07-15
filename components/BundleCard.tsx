@@ -8,9 +8,10 @@ import { Img } from '@/components/ui/Img';
 interface BundleCardProps {
   bundle: Bundle;
   onClick: (bundle: Bundle) => void;
+  index?: number;
 }
 
-export function BundleCard({ bundle, onClick }: BundleCardProps) {
+export function BundleCard({ bundle, onClick, index }: BundleCardProps) {
   // Prioridade de imagem: verticalPromoImage > displayIcon2 > displayIcon
   const bgImage = bundle.verticalPromoImage ?? bundle.displayIcon2 ?? bundle.displayIcon;
   const thumbImage = bundle.displayIcon ?? bundle.displayIcon2;
@@ -19,6 +20,7 @@ export function BundleCard({ bundle, onClick }: BundleCardProps) {
     <CardButton
       onClick={() => onClick(bundle)}
       ariaLabel={`Ver coleção ${bundle.displayName}`}
+      index={index}
       className="group overflow-hidden"
     >
       {bgImage ? (
@@ -45,7 +47,7 @@ export function BundleCard({ bundle, onClick }: BundleCardProps) {
               {bundle.displayName}
             </h3>
             {bundle.displayNameSubText && (
-              <p className="text-[11px] text-accent font-semibold uppercase tracking-[0.15em] mt-1">
+              <p className="text-eyebrow text-accent font-semibold uppercase mt-1.5">
                 {bundle.displayNameSubText}
               </p>
             )}

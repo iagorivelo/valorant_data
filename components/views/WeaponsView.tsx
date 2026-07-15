@@ -43,7 +43,7 @@ export function WeaponsView({ weapons }: { weapons: Weapon[] }) {
         resultCount={filtered.length}
         totalCount={weapons.length}
       />
-      <div className="-mt-2 mb-6">
+      <div className="-mt-1 mb-8">
         <FilterChips
           label="Categoria"
           options={categories.map((c) => ({ value: c, label: c }))}
@@ -51,9 +51,9 @@ export function WeaponsView({ weapons }: { weapons: Weapon[] }) {
           onChange={setCategory}
         />
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-        {filtered.map((weapon) => (
-          <WeaponCard key={weapon.uuid} weapon={weapon} onClick={(w) => router.push(`/armas/${w.uuid}`)} />
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6">
+        {filtered.map((weapon, i) => (
+          <WeaponCard key={weapon.uuid} weapon={weapon} index={i} onClick={(w) => router.push(`/armas/${w.uuid}`)} />
         ))}
       </div>
     </section>

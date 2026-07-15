@@ -59,9 +59,9 @@ export function CollectionsGrid({ bundles, onSelect }: CollectionsGridProps) {
   const nonEmpty = SECTIONS.filter((s) => grouped[s.key].length > 0);
   if (nonEmpty.length === 1) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {bundles.map((b) => (
-          <BundleCard key={b.uuid} bundle={b} onClick={onSelect} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+        {bundles.map((b, i) => (
+          <BundleCard key={b.uuid} bundle={b} index={i} onClick={onSelect} />
         ))}
       </div>
     );
@@ -86,9 +86,9 @@ export function CollectionsGrid({ bundles, onSelect }: CollectionsGridProps) {
               <span className="flex-1 h-px bg-line" aria-hidden="true" />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {items.map((bundle) => (
-                <BundleCard key={bundle.uuid} bundle={bundle} onClick={onSelect} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+              {items.map((bundle, i) => (
+                <BundleCard key={bundle.uuid} bundle={bundle} index={i} onClick={onSelect} />
               ))}
             </div>
           </div>

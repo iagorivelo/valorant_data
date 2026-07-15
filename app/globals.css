@@ -3,14 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --ground: #0c1116;
-  --surface: #11181e;
-  --surface-raised: #18222b;
-  --line: #1e2731;
-  --ink: #e7ecef;
-  --ink-muted: #8a97a0;
-  --ink-faint: #566069;
+  --ground: #0b0f14;
+  --surface: #121821;
+  --surface-raised: #1a222c;
+  --line: #232e39;
+  --ink: #edf1f4;
+  --ink-muted: #9daab4;
+  --ink-faint: #788591;
   --accent: #ff4655;
+
+  /* Curva de easing padrão do sistema (saída suave e rápida). */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
@@ -30,7 +33,7 @@ body {
 
 ::selection {
   background: var(--accent);
-  color: #0c1116;
+  color: #0b0f14;
 }
 
 /* Scrollbar discreta */
@@ -42,52 +45,110 @@ body {
   background: var(--ground);
 }
 ::-webkit-scrollbar-thumb {
-  background: #283340;
+  background: #2b3743;
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #364453;
+  background: #3a4855;
 }
 
 @layer components {
   /* Eyebrow / rótulo utilitário — caixa-alta com tracking largo */
   .eyebrow {
-    @apply text-[11px] font-semibold uppercase tracking-[0.28em] text-ink-faint;
+    @apply text-eyebrow font-semibold uppercase text-ink-faint;
   }
 
-  /* Card interativo: superfície + hairline + colchete de mira no hover/foco */
+  /* ── Card interativo ─────────────────────────────────────────────
+     Microinteração unificada e discreta: no hover/foco o card ganha
+     elevação (translateY), escala sutil, sombra e um realce no acento.
+     Um filete no topo revela a identidade VALORANT sem ruído. */
   .card {
-    @apply relative cursor-pointer bg-surface border border-line transition-[border-color,background-color,transform] duration-300;
+    @apply relative cursor-pointer bg-surface border border-line;
+    transition:
+      transform 0.3s var(--ease-out),
+      box-shadow 0.3s var(--ease-out),
+      border-color 0.2s ease,
+      background-color 0.2s ease;
   }
-  .card::after {
+  /* Filete de acento no topo (0 → 100% no hover) */
+  .card::before {
     content: '';
     position: absolute;
     top: 0;
+    left: 0;
     right: 0;
-    width: 16px;
-    height: 16px;
-    border-top: 2px solid var(--accent);
-    border-right: 2px solid var(--accent);
-    opacity: 0;
-    transform: translate(-5px, 5px);
-    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease-out);
     z-index: 6;
     pointer-events: none;
   }
   .card:hover,
   .card:focus-visible {
-    @apply border-accent/45 outline-none;
+    @apply border-accent/40 outline-none;
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: theme('boxShadow.lift');
   }
-  .card:hover::after,
-  .card:focus-visible::after {
-    opacity: 1;
-    transform: translate(0, 0);
+  .card:hover::before,
+  .card:focus-visible::before {
+    transform: scaleX(1);
+  }
+  /* Anel de foco visível e acessível para navegação por teclado */
+  .card:focus-visible {
+    box-shadow:
+      theme('boxShadow.lift'),
+      0 0 0 2px var(--ground),
+      0 0 0 4px var(--accent);
+  }
+
+  /* ── Tile de exibição (não clicável) ─────────────────────────────
+     Versão mais leve do card para grades apresentacionais (modos, ranks,
+     cosméticos): sem cursor de clique, sem escala nem realce de acento —
+     apenas uma elevação sutil e o filete da borda no hover. */
+  .tile {
+    @apply relative bg-surface border border-line;
+    transition:
+      transform 0.3s var(--ease-out),
+      box-shadow 0.3s var(--ease-out),
+      border-color 0.2s ease;
+  }
+  .tile:hover {
+    @apply border-ink-faint/70;
+    transform: translateY(-2px);
+    box-shadow: theme('boxShadow.lift');
   }
 
   /* Campo de formulário padrão */
   .field {
     @apply w-full bg-surface border border-line text-ink placeholder-ink-faint text-sm font-medium transition-colors;
-    @apply focus:outline-none focus:border-accent/70;
+    @apply focus:outline-none focus:border-accent/70 focus:ring-2 focus:ring-accent/25;
+  }
+
+  /* ── Entrada na rolagem (fade + slide) ───────────────────────────
+     Implementada como ANIMAÇÃO (não transition) para não colidir com a
+     transição de transform do hover no mesmo elemento. O estado inicial só
+     vale quando o JS está ativo (classe .js no <html>), garantindo conteúdo
+     visível sem JS. `reveal-in` é aplicada pelo IntersectionObserver quando o
+     elemento entra na tela; ao terminar, a classe é removida (onAnimationEnd)
+     e o card volta ao estado neutro — deixando o hover livre e ágil. */
+  html.js .reveal-pre {
+    opacity: 0;
+  }
+  html.js .reveal-in {
+    animation: reveal-enter 0.55s var(--ease-out) both;
+  }
+}
+
+@keyframes reveal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -107,5 +168,17 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+  /* Sem deslocamento/escala: apenas mantém tudo visível e estável */
+  .card:hover,
+  .card:focus-visible,
+  .tile:hover {
+    transform: none;
+  }
+  html.js .reveal-pre {
+    opacity: 1;
+  }
+  html.js .reveal-in {
+    animation: none;
   }
 }
