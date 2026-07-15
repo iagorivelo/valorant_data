@@ -1,7 +1,7 @@
 // Buscas por item para as páginas de detalhe e os modais interceptados.
 // Reusam os fetchers cacheados (ISR), então buscar a lista inteira é barato.
 
-import { fetchAgents, fetchContracts, fetchWeapons, fetchMaps, fetchBundles } from './valorantApi';
+import { fetchAgents, fetchContracts, fetchWeapon, fetchMaps, fetchBundles } from './valorantApi';
 import { Agent, Weapon, ValorantMap, Bundle, Contract } from '@/types/valorant';
 
 export async function getAgentWithContract(
@@ -14,7 +14,8 @@ export async function getAgentWithContract(
 }
 
 export async function getWeapon(uuid: string): Promise<Weapon | null> {
-  return (await fetchWeapons()).find((w) => w.uuid === uuid) ?? null;
+  // Endpoint por-item (leve) em vez de baixar a lista inteira de armas.
+  return fetchWeapon(uuid);
 }
 
 export async function getMap(uuid: string): Promise<ValorantMap | null> {
