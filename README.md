@@ -3,6 +3,8 @@
 Dashboard para explorar o arsenal do Valorant — agentes, armas e skins (com chromas e
 níveis em vídeo), mapas (com lore) e coleções — construído sobre a [valorant-api.com](https://valorant-api.com).
 
+**Veja no portfólio:** [iagorivelo.vercel.app/projects/valorant_data](https://iagorivelo.vercel.app/projects/valorant_data)
+
 ## Stack
 
 - **Next.js 14** (App Router) com **TypeScript**
